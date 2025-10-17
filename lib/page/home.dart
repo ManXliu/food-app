@@ -1,3 +1,4 @@
+import 'package:first_flutter_project/component/click_container.dart';
 import 'package:first_flutter_project/page/categories.dart';
 import 'package:flutter/material.dart';
 
@@ -16,29 +17,32 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(title: Text('Home')),
       body: buildBody(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        onTap: (int i) {
-          setState(() {
-            currentIndex = i;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFFD9D9D9),
-            icon: Icon(Icons.home),
-            label: "123123",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.category), label: "123123"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "123123"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_rounded),
-            label: "123123",
-          ),
-        ],
+      bottomNavigationBar: Container(
+        color: Color(0xFFD9D9D9),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          spacing: 0,
+          children: [
+            Expanded(
+              child: const ClickContainer(iconData: Icons.home, index: 0),
+            ),
+            Expanded(
+              child: const ClickContainer(
+                iconData: Icons.category_sharp,
+                index: 1,
+              ),
+            ),
+            Expanded(
+              child: const ClickContainer(iconData: Icons.favorite, index: 2),
+            ),
+            Expanded(
+              child: const ClickContainer(
+                iconData: Icons.add_circle_sharp,
+                index: 3,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

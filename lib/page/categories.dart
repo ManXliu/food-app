@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -10,21 +11,14 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFFD9D9D9),
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              child: Icon(Icons.home),
-              onTap: () {
-                print(12);
-              },
-            ),
-          ),
-          Expanded(child: Icon(Icons.home)),
-          Expanded(child: Icon(Icons.home)),
-        ],
+    return SizedBox(
+      width: 50.w,
+      height: 20.h,
+      child: Container(
+        width: 20.w,
+        height: 20.w,
+        color: Colors.red,
+        constraints: BoxConstraints.tight(Size(20.w, 20.w)),
       ),
     );
   }
