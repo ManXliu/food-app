@@ -1,6 +1,11 @@
 import 'package:first_flutter_project/component/custom_bottom_navigator_item.dart';
 import 'package:first_flutter_project/page/categories.dart';
+import 'package:first_flutter_project/page/favorities.dart';
+import 'package:first_flutter_project/page/recipe.dart';
+import 'package:first_flutter_project/page/search.dart' show Search;
+import 'package:first_flutter_project/provider/home_index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -40,17 +45,21 @@ class _HomeState extends State<Home> {
   }
 
   Widget? buildBody() {
-    if (currentIndex == 0) {
-      return Categories();
-    }
-    if (currentIndex == 1) {
-      return Categories();
-    }
-    if (currentIndex == 2) {
-      return Categories();
-    }
-    if (currentIndex == 3) {
-      return Categories();
-    }
+    return Consumer(
+      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        final watch = ref.watch(homeIndexProvider);
+        if (watch == 0) {
+          return Search();
+        }
+        if (watch == 1) {
+          return Categories();
+        }
+        if (watch == 2) {
+          return Favorities();
+        }
+
+        return Ricipe();
+      },
+    );
   }
 }

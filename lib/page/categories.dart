@@ -11,15 +11,6 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 50.w,
-      height: 20.h,
-      child: Container(
-        width: 20.w,
-        height: 20.w,
-        color: Colors.red,
-        constraints: BoxConstraints.tight(Size(20.w, 20.w)),
-      ),
-    );
+    return Text('Categories');
   }
 }
