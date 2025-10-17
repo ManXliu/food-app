@@ -3,35 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ClickContainer extends StatefulWidget {
+class CustomBottomNavigatorItem extends StatefulWidget {
   final IconData iconData;
 
   final int index;
 
-  const ClickContainer({
+  const CustomBottomNavigatorItem({
     super.key,
     required this.iconData,
     required this.index,
   });
 
   @override
-  State<ClickContainer> createState() => _ClickContainerState();
+  State<CustomBottomNavigatorItem> createState() =>
+      _CustomBottomNavigatorItemState();
 }
 
-class _ClickContainerState extends State<ClickContainer> {
+class _CustomBottomNavigatorItemState extends State<CustomBottomNavigatorItem> {
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        final watch = ref.watch(homeIndexProvider);
+        int watch = ref.watch(homeIndexProvider);
         Color? color;
         if (widget.index == watch) {
           color = Color(0x4000B4BF);
         }
         return GestureDetector(
           onTap: () {
-            print(widget.index);
-            ref.read(homeIndexProvider.notifier).increment(widget.index);
+            ref.read(homeIndexProvider.notifier).setIndex(widget.index);
           },
           child: Container(
             color: Color(0xFFD9D9D9),

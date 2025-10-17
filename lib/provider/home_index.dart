@@ -7,9 +7,5 @@ class HomeIndex extends _$HomeIndex {
   @override
   int build() => 0;
 
-  void increment(int index) => state = index;
-
-  int getIndex(){
-    return state;
-  }
+  void setIndex(int index) => state = index;
 }

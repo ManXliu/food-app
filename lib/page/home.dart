@@ -1,4 +1,4 @@
-import 'package:first_flutter_project/component/click_container.dart';
+import 'package:first_flutter_project/component/custom_bottom_navigator_item.dart';
 import 'package:first_flutter_project/page/categories.dart';
 import 'package:flutter/material.dart';
 
@@ -23,23 +23,15 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           spacing: 0,
           children: [
-            Expanded(
-              child: const ClickContainer(iconData: Icons.home, index: 0),
+            const CustomBottomNavigatorItem(iconData: Icons.home, index: 0),
+            const CustomBottomNavigatorItem(
+              iconData: Icons.category_sharp,
+              index: 1,
             ),
-            Expanded(
-              child: const ClickContainer(
-                iconData: Icons.category_sharp,
-                index: 1,
-              ),
-            ),
-            Expanded(
-              child: const ClickContainer(iconData: Icons.favorite, index: 2),
-            ),
-            Expanded(
-              child: const ClickContainer(
-                iconData: Icons.add_circle_sharp,
-                index: 3,
-              ),
+            const CustomBottomNavigatorItem(iconData: Icons.favorite, index: 2),
+            const CustomBottomNavigatorItem(
+              iconData: Icons.add_circle_sharp,
+              index: 3,
             ),
           ],
         ),
