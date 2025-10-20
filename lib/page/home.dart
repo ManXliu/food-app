@@ -2,7 +2,7 @@ import 'package:first_flutter_project/component/custom_bottom_navigator_item.dar
 import 'package:first_flutter_project/page/categories.dart';
 import 'package:first_flutter_project/page/favorities.dart';
 import 'package:first_flutter_project/page/recipe.dart';
-import 'package:first_flutter_project/page/search.dart' show Search;
+import 'package:first_flutter_project/page/search/search.dart' show Search;
 import 'package:first_flutter_project/provider/home_index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

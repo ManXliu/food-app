@@ -1,5 +1,8 @@
+import 'package:first_flutter_project/model/food_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'gridview_item.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -49,19 +52,9 @@ class _SearchState extends State<Search> {
                 mainAxisSpacing: 10, // 垂直间距
                 childAspectRatio: 1.0, // 子项宽高比
               ),
-              itemCount: 20, // 项目总数
+              itemCount: foodList.length, // 项目总数
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/images/food1.png'),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text('Chorizo & mozzarella gnocchi bake'),
-                  ),
-                );
+                return GridViewItem(foodModel: foodList[index]);
               },
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // 喜爱
 class Favorities extends StatefulWidget {
@@ -11,6 +12,6 @@ class Favorities extends StatefulWidget {
 class _FavoritiesState extends State<Favorities> {
   @override
   Widget build(BuildContext context) {
-    return const Text('Favorities');
+    return Text('123123');
   }
 }
