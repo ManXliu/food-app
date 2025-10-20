@@ -40,7 +40,7 @@ final class HomeIndexProvider extends $NotifierProvider<HomeIndex, int> {
   }
 }
 
-String _$homeIndexHash() => r'e4fa85a8262e7c19fa2b66aef6a9f4c415ef6c97';
+String _$homeIndexHash() => r'7f6dda9a22ca404390f20fecfe4673a058755e4e';
 
 abstract class _$HomeIndex extends $Notifier<int> {
   int build();

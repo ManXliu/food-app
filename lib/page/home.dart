@@ -20,7 +20,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: buildBody()),
+      body: Container(
+        color: Color(0xFFfcfcfc),
+        child: SafeArea(child: buildBody()),
+      ),
       bottomNavigationBar: Container(
         color: Color(0xFFD9D9D9),
         child: Row(
