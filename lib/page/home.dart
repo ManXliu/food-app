@@ -20,8 +20,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
-      body: buildBody(),
+      body: SafeArea(child: buildBody()),
       bottomNavigationBar: Container(
         color: Color(0xFFD9D9D9),
         child: Row(
@@ -44,7 +43,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget? buildBody() {
+  Widget buildBody() {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
         final watch = ref.watch(homeIndexProvider);
@@ -57,7 +56,6 @@ class _HomeState extends State<Home> {
         if (watch == 2) {
           return Favorities();
         }
-
         return Ricipe();
       },
     );
