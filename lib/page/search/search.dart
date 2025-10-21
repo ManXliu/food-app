@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:first_flutter_project/page/search/food_grid_view.dart';
 import 'package:first_flutter_project/page/search/food_list_view.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,32 @@ class Search extends StatefulWidget {
   State<Search> createState() => _SearchState();
 }
 
-class _SearchState extends State<Search> {
+class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
   // 展示方式
   int show = 0;
+
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 2 * math.pi * 0.25,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    show = 0;
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +65,55 @@ class _SearchState extends State<Search> {
                   onTap: () {
                     setState(() {
                       if (show == 0) {
+                        _animation =
+                            Tween<double>(
+                              begin: 0,
+                              end: 2 * math.pi * 0.25,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: _controller,
+                                curve: Curves.easeInOut,
+                              ),
+                            );
                         show = 1;
                       } else if (show == 1) {
+                        _animation =
+                            Tween<double>(
+                              begin: 2 * math.pi * 0.25,
+                              end: 2 * math.pi * 0.5,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: _controller,
+                                curve: Curves.easeInOut,
+                              ),
+                            );
                         show = 2;
                       } else {
                         show = 0;
+                        _animation =
+                            Tween<double>(
+                              begin: 2 * math.pi * 0.5,
+                              end: 2 * math.pi,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: _controller,
+                                curve: Curves.easeInOut,
+                              ),
+                            );
                       }
+                      _controller.reset();
+                      _controller.forward();
                     });
                   },
-                  child: Icon(Icons.menu),
+                  child: AnimatedBuilder(
+                    animation: _animation,
+                    builder: (BuildContext context, Widget? child) {
+                      return Transform.rotate(
+                        angle: _animation.value,
+                        child: Icon(Icons.arrow_circle_down),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
