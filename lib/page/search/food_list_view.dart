@@ -13,6 +13,13 @@ class FoodListView extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5.h)),
             color: Color(0xFFF6F6F6),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 0.3,
+                offset: Offset(0, 5),
+              ),
+            ],
           ),
           margin: EdgeInsetsGeometry.only(bottom: 10.h),
           padding: EdgeInsetsGeometry.only(

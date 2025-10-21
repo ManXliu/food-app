@@ -21,6 +21,12 @@ class FoodGridView2 extends StatelessWidget {
           decoration: BoxDecoration(
             color: Color(0xFFF6F6F6),
             borderRadius: BorderRadius.all(Radius.circular(5.h)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                offset: Offset(0, 3),
+              ),
+            ],
           ),
           child: Column(
             children: [

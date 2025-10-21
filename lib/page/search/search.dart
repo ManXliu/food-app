@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:first_flutter_project/page/common_title.dart';
 import 'package:first_flutter_project/page/search/food_grid_view.dart';
 import 'package:first_flutter_project/page/search/food_list_view.dart';
 import 'package:flutter/material.dart';
@@ -50,73 +51,66 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 20.h),
-          Stack(
-            children: [
-              Center(
-                child: Text(
-                  "Search",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
-                ),
-              ),
-              Positioned(
-                right: 0,
-                top: 8.h,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (show == 0) {
-                        _animation =
-                            Tween<double>(
-                              begin: 0,
-                              end: 2 * math.pi * 0.25,
-                            ).animate(
-                              CurvedAnimation(
-                                parent: _controller,
-                                curve: Curves.easeInOut,
-                              ),
-                            );
-                        show = 1;
-                      } else if (show == 1) {
-                        _animation =
-                            Tween<double>(
-                              begin: 2 * math.pi * 0.25,
-                              end: 2 * math.pi * 0.5,
-                            ).animate(
-                              CurvedAnimation(
-                                parent: _controller,
-                                curve: Curves.easeInOut,
-                              ),
-                            );
-                        show = 2;
-                      } else {
-                        show = 0;
-                        _animation =
-                            Tween<double>(
-                              begin: 2 * math.pi * 0.5,
-                              end: 2 * math.pi,
-                            ).animate(
-                              CurvedAnimation(
-                                parent: _controller,
-                                curve: Curves.easeInOut,
-                              ),
-                            );
-                      }
-                      _controller.reset();
-                      _controller.forward();
-                    });
+          CommonTitle(
+            widget: Positioned(
+              right: 0,
+              top: 8.h,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (show == 0) {
+                      _animation =
+                          Tween<double>(
+                            begin: 0,
+                            end: 2 * math.pi * 0.25,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: _controller,
+                              curve: Curves.easeInOut,
+                            ),
+                          );
+                      show = 1;
+                    } else if (show == 1) {
+                      _animation =
+                          Tween<double>(
+                            begin: 2 * math.pi * 0.25,
+                            end: 2 * math.pi * 0.5,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: _controller,
+                              curve: Curves.easeInOut,
+                            ),
+                          );
+                      show = 2;
+                    } else {
+                      show = 0;
+                      _animation =
+                          Tween<double>(
+                            begin: 2 * math.pi * 0.5,
+                            end: 2 * math.pi,
+                          ).animate(
+                            CurvedAnimation(
+                              parent: _controller,
+                              curve: Curves.easeInOut,
+                            ),
+                          );
+                    }
+                    _controller.reset();
+                    _controller.forward();
+                  });
+                },
+                child: AnimatedBuilder(
+                  animation: _animation,
+                  builder: (BuildContext context, Widget? child) {
+                    return Transform.rotate(
+                      angle: _animation.value,
+                      child: Icon(Icons.arrow_circle_down),
+                    );
                   },
-                  child: AnimatedBuilder(
-                    animation: _animation,
-                    builder: (BuildContext context, Widget? child) {
-                      return Transform.rotate(
-                        angle: _animation.value,
-                        child: Icon(Icons.arrow_circle_down),
-                      );
-                    },
-                  ),
                 ),
               ),
-            ],
+            ),
+            title: "Search",
           ),
           SizedBox(height: 10.h),
           Text(
