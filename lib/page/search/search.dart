@@ -1,8 +1,9 @@
-import 'package:first_flutter_project/model/food_model.dart';
+import 'package:first_flutter_project/page/search/food_grid_view.dart';
+import 'package:first_flutter_project/page/search/food_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'gridview_item.dart';
+import 'food_grid_view2.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -12,6 +13,9 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  // 展示方式
+  int show = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,11 +25,33 @@ class _SearchState extends State<Search> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 20.h),
-          Center(
-            child: Text(
-              "Search",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
-            ),
+          Stack(
+            children: [
+              Center(
+                child: Text(
+                  "Search",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+                ),
+              ),
+              Positioned(
+                right: 0,
+                top: 8.h,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (show == 0) {
+                        show = 1;
+                      } else if (show == 1) {
+                        show = 2;
+                      } else {
+                        show = 0;
+                      }
+                    });
+                  },
+                  child: Icon(Icons.menu),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 10.h),
           Text(
@@ -44,22 +70,18 @@ class _SearchState extends State<Search> {
           ),
 
           SizedBox(height: 10.h),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // 每行显示的项目数
-                crossAxisSpacing: 10, // 水平间距
-                mainAxisSpacing: 10, // 垂直间距
-                childAspectRatio: 1.0, // 子项宽高比
-              ),
-              itemCount: foodList.length, // 项目总数
-              itemBuilder: (context, index) {
-                return GridViewItem(foodModel: foodList[index]);
-              },
-            ),
-          ),
+          Expanded(child: buildShow()),
         ],
       ),
     );
+  }
+
+  Widget buildShow() {
+    if (show == 0) {
+      return FoodGridView();
+    } else if (show == 1) {
+      return FoodListView();
+    }
+    return FoodGridView2();
   }
 }

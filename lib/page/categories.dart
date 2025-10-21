@@ -1,5 +1,5 @@
+import 'package:first_flutter_project/page/search/food_grid_view2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -11,6 +11,11 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
-    return Text('Categories');
+    return Column(
+      children: [
+        SizedBox(height: 50),
+        Expanded(child: FoodGridView2()),
+      ],
+    );
   }
 }
