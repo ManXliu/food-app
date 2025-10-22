@@ -5,6 +5,7 @@ import 'package:first_flutter_project/page/recipe.dart';
 import 'package:first_flutter_project/page/search/search.dart' show Search;
 import 'package:first_flutter_project/provider/home_index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart' show FlutterNativeSplash;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Home extends StatefulWidget {
@@ -16,6 +17,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initialization();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,5 +70,16 @@ class _HomeState extends State<Home> {
         return Ricipe();
       },
     );
+  }
+
+  void initialization() async {
+    print('ready in 3...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 2...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 1...');
+    await Future.delayed(const Duration(seconds: 20));
+    print('go!');
+    FlutterNativeSplash.remove();
   }
 }

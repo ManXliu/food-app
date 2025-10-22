@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart' show FlutterNativeSplash;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'base/router.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // await Alarm.init();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+
 
   // This widget is the root of your application.
   @override
