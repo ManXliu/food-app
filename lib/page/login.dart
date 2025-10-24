@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -16,24 +17,43 @@ class LoginPage extends StatelessWidget {
               horizontal: 10.h,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('用户名'),
+                Gap(20.h),
+                Text(
+                  "登录",
+                  style: TextStyle(fontSize: 20.h, fontWeight: FontWeight.w400),
+                ),
+                Container(
+                  padding: EdgeInsetsGeometry.symmetric(vertical: 5.h),
+                  alignment: AlignmentGeometry.centerLeft,
+                  child: Text('用户名'),
+                ),
                 SizedBox(
                   height: 40.h,
                   child: TextField(
                     decoration: InputDecoration(border: OutlineInputBorder()),
                   ),
                 ),
+                Container(
+                  padding: EdgeInsetsGeometry.symmetric(vertical: 5.h),
+                  alignment: AlignmentGeometry.centerLeft,
+                  child: Text('密码'),
+                ),
                 SizedBox(
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text("登录"),
-                        style: ButtonStyle(),
-                      ),
-                    ],
+                  height: 40.h,
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
+                  ),
+                ),
+                Gap(10.h),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(),
+                    child: Text("登录"),
                   ),
                 ),
               ],
