@@ -48,11 +48,23 @@ class NetRequestManager {
     );
     return response;
   }
-}
 
-abstract class RequestCallback<T> {
-
-  void onSuccess(T requestData);
-
-  void onFailed(Exception e);
+  Future<Response> postRequest<T>(
+    String url, {
+    Map<String, dynamic>? queryParameters,
+    Object? data,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    var response = await _dio.post(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
+    );
+    return response;
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:first_flutter_project/base/env.dart';
+import 'package:first_flutter_project/base/net_request_manager.dart';
 import 'package:first_flutter_project/model/user_model.dart';
 import 'package:first_flutter_project/provider/login_status_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -21,9 +23,18 @@ class UserModelProvider extends _$UserModelProvider {
     final loginStatus = ref.read(loginStatusProviderProvider.notifier);
     loginStatus.reset(LoginStatus.loading);
     await Future.delayed(const Duration(seconds: 2));
-    if (username == 'test' && password == '123123') {
+    try {
+      final response = await NetRequestManager.instance.postRequest(
+        "/auth/login",
+        data: {
+          "username": username,
+          "password": password,
+          "clientId": Env.clientId,
+          "grantType": Env.grantType,
+        },
+      );
       loginStatus.reset(LoginStatus.success);
-    } else {
+    } catch (e) {
       loginStatus.reset(LoginStatus.error);
     }
   }
