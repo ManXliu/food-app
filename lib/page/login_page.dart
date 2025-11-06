@@ -1,8 +1,11 @@
+import 'package:first_flutter_project/provider/login_status_provider.dart';
+import 'package:first_flutter_project/provider/user_model_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginPage extends HookConsumerWidget {
@@ -12,6 +15,59 @@ class LoginPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final username = useTextEditingController.fromValue(TextEditingValue.empty);
     final password = useTextEditingController.fromValue(TextEditingValue.empty);
+    final loginStatusInfo = ref.watch(loginStatusProviderProvider);
+    ref.listen(loginStatusProviderProvider, (prev, next) {
+      if (next == LoginStatus.loading) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const AlertDialog(
+            content: Row(
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 16),
+                Text("登录中，请稍候..."),
+              ],
+            ),
+          ),
+        );
+      } else {
+        if (next == LoginStatus.success) {
+          context.pop();
+          Fluttertoast.showToast(
+            msg: "登录成功",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.lime,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+          ref
+              .read(loginStatusProviderProvider.notifier)
+              .reset(LoginStatus.idle);
+          ref
+              .read(userModelProviderProvider.notifier)
+              .setValue(username.text, password.text);
+          context.go("/user");
+        }
+        if (next == LoginStatus.error) {
+          context.pop();
+          Fluttertoast.showToast(
+            msg: "登录失败",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+          ref
+              .read(loginStatusProviderProvider.notifier)
+              .reset(LoginStatus.idle);
+        }
+      }
+    });
     return Scaffold(
       backgroundColor: Color(0xFFfcfcfc),
       body: SingleChildScrollView(
@@ -59,8 +115,14 @@ class LoginPage extends HookConsumerWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      print(username.value.text);
-                      print(password.value.text);
+                      if (loginStatusInfo == LoginStatus.idle) {
+                        ref
+                            .read(userModelProviderProvider.notifier)
+                            .login(
+                              username: username.text,
+                              password: password.text,
+                            );
+                      }
                     },
                     style: ButtonStyle(),
                     child: Text("登录"),

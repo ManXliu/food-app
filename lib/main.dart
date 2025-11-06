@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart' show FlutterNativeSplash;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'base/router.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp.router(
+        builder: FToastBuilder(),
         routerConfig: router,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

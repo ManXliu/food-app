@@ -358,6 +358,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_hooks:
+    dependency: "direct main"
+    description:
+      name: flutter_hooks
+      sha256: "8ae1f090e5f4ef5cfa6670ce1ab5dddadd33f3533a7f9ba19d9f958aa2a89f42"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.21.3+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -400,6 +408,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      sha256: "144ddd74d49c865eba47abe31cbc746c7b311c82d6c32e571fd73c4264b740e2"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "9.0.0"
   freezed_annotation:
     dependency: transitive
     description:
@@ -448,6 +464,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.2"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      sha256: ae4a2f6d82dd895379f9b95457e090ac2d2fef9446f9325f8d31b9c86cadc131
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.3"
   hotreloader:
     dependency: transitive
     description:
@@ -505,7 +529,7 @@ packages:
     source: hosted
     version: "0.7.2"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
@@ -991,4 +1015,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.9.2 <4.0.0"
-  flutter: ">=3.29.0"
+  flutter: ">=3.32.0"
