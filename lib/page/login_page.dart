@@ -16,58 +16,112 @@ class LoginPage extends HookConsumerWidget {
     final username = useTextEditingController.fromValue(TextEditingValue.empty);
     final password = useTextEditingController.fromValue(TextEditingValue.empty);
     final loginStatusInfo = ref.watch(loginStatusProviderProvider);
-    ref.listen(loginStatusProviderProvider, (prev, next) {
-      if (next == LoginStatus.loading) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) => const AlertDialog(
-            content: Row(
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(width: 16),
-                Text("登录中，请稍候..."),
-              ],
+    useEffect(() {
+      if (context.mounted) {
+        if (loginStatusInfo == LoginStatus.loading) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const AlertDialog(
+              content: Row(
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(width: 16),
+                  Text("登录中，请稍候..."),
+                ],
+              ),
             ),
-          ),
-        );
-      } else {
-        if (next == LoginStatus.success) {
-          context.pop();
-          Fluttertoast.showToast(
-            msg: "登录成功",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.lime,
-            textColor: Colors.white,
-            fontSize: 16.0,
           );
-          ref
-              .read(loginStatusProviderProvider.notifier)
-              .reset(LoginStatus.idle);
-          ref
-              .read(userModelProviderProvider.notifier)
-              .setValue(username.text, password.text);
-          context.go("/user");
-        }
-        if (next == LoginStatus.error) {
-          context.pop();
-          Fluttertoast.showToast(
-            msg: "登录失败",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-          ref
-              .read(loginStatusProviderProvider.notifier)
-              .reset(LoginStatus.idle);
+        } else {
+          if (loginStatusInfo == LoginStatus.success) {
+            context.pop();
+            Fluttertoast.showToast(
+              msg: "登录成功",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.lime,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
+            ref
+                .read(loginStatusProviderProvider.notifier)
+                .reset(LoginStatus.idle);
+            ref
+                .read(userModelProviderProvider.notifier)
+                .setValue(username.text, password.text);
+            context.go("/user");
+          }
+          if (loginStatusInfo == LoginStatus.error) {
+            context.pop();
+            Fluttertoast.showToast(
+              msg: "登录失败",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
+            ref
+                .read(loginStatusProviderProvider.notifier)
+                .reset(LoginStatus.idle);
+          }
         }
       }
-    });
+    }, [loginStatusInfo]);
+    // ref.listen(loginStatusProviderProvider, (prev, next) {
+    //   if (next == LoginStatus.loading) {
+    //     showDialog(
+    //       context: context,
+    //       barrierDismissible: false,
+    //       builder: (_) => const AlertDialog(
+    //         content: Row(
+    //           children: [
+    //             CircularProgressIndicator(),
+    //             SizedBox(width: 16),
+    //             Text("登录中，请稍候..."),
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //   } else {
+    //     if (next == LoginStatus.success) {
+    //       context.pop();
+    //       Fluttertoast.showToast(
+    //         msg: "登录成功",
+    //         toastLength: Toast.LENGTH_SHORT,
+    //         gravity: ToastGravity.CENTER,
+    //         timeInSecForIosWeb: 1,
+    //         backgroundColor: Colors.lime,
+    //         textColor: Colors.white,
+    //         fontSize: 16.0,
+    //       );
+    //       ref
+    //           .read(loginStatusProviderProvider.notifier)
+    //           .reset(LoginStatus.idle);
+    //       ref
+    //           .read(userModelProviderProvider.notifier)
+    //           .setValue(username.text, password.text);
+    //       context.go("/user");
+    //     }
+    //     if (next == LoginStatus.error) {
+    //       context.pop();
+    //       Fluttertoast.showToast(
+    //         msg: "登录失败",
+    //         toastLength: Toast.LENGTH_SHORT,
+    //         gravity: ToastGravity.CENTER,
+    //         timeInSecForIosWeb: 1,
+    //         backgroundColor: Colors.red,
+    //         textColor: Colors.white,
+    //         fontSize: 16.0,
+    //       );
+    //       ref
+    //           .read(loginStatusProviderProvider.notifier)
+    //           .reset(LoginStatus.idle);
+    //     }
+    //   }
+    // });
     return Scaffold(
       backgroundColor: Color(0xFFfcfcfc),
       body: SingleChildScrollView(
@@ -114,9 +168,9 @@ class LoginPage extends HookConsumerWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (loginStatusInfo == LoginStatus.idle) {
-                        ref
+                        await ref
                             .read(userModelProviderProvider.notifier)
                             .login(
                               username: username.text,

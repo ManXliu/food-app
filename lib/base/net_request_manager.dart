@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:first_flutter_project/base/interceptor/result_interceptor.dart';
 
 import 'env.dart';
 
@@ -30,6 +31,7 @@ class NetRequestManager {
       ),
     );
     _dio.interceptors.add(InterceptorsWrapper());
+    _dio.interceptors.add(ResultInterceptor());
   }
 
   Future<Response> getRequest<T>(
@@ -39,7 +41,7 @@ class NetRequestManager {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    var response = await _dio.get(
+    final Response<T> response = await _dio.get(
       url,
       queryParameters: queryParameters,
       options: options,
@@ -57,7 +59,7 @@ class NetRequestManager {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    var response = await _dio.post(
+    final response = await _dio.post(
       url,
       data: data,
       queryParameters: queryParameters,
