@@ -31,8 +31,10 @@ class UserModelProvider extends _$UserModelProvider {
           "password": password,
           "clientId": Env.clientId,
           "grantType": Env.grantType,
+          "tenantId":Env.tenantId,
         },
       );
+      state = AsyncData(UserModel(BigInt.one, 'test', 'test', 'test'));
       loginStatus.reset(LoginStatus.success);
     } catch (e) {
       loginStatus.reset(LoginStatus.error);

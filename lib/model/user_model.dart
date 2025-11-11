@@ -9,7 +9,15 @@ class UserModel{
   final String username;
   final String accessToken;
   final String refreshToken;
+  final String avatarOssId;
+
+  UserModel(this.userId, this.username, this.accessToken, this.refreshToken,
+      this.avatarOssId);
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
 
-  UserModel(this.userId, this.username, this.accessToken, this.refreshToken);
 }

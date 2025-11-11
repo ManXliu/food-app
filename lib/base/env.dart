@@ -17,5 +17,6 @@ abstract class Env {
   @EnviedField(varName: "GRANT_TYPE")
   static final String grantType = _Env.grantType;
 
-
+  @EnviedField(varName: "TENANT_ID")
+  static final String tenantId = _Env.tenantId;
 }
