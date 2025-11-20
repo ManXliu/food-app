@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'common_title.dart';
 
-class Ricipe extends StatefulWidget {
-  const Ricipe({super.key});
+class Recipe extends StatefulWidget {
+  const Recipe({super.key});
 
   @override
-  State<Ricipe> createState() => _RicipeState();
+  State<Recipe> createState() => _RecipeState();
 }
 
-class _RicipeState extends State<Ricipe> {
+class _RecipeState extends State<Recipe> {
   List<String> label = [
     'NAME',
     'CATEGORY',

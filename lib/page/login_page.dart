@@ -52,7 +52,7 @@ class LoginPage extends HookConsumerWidget {
               ref
                   .read(loginStatusProviderProvider.notifier)
                   .reset(LoginStatus.idle);
-              context.go("/user");
+              context.go("/");
             }
           });
         }
@@ -76,7 +76,7 @@ class LoginPage extends HookConsumerWidget {
           });
         }
       }
-    },[loginStatusInfo]);
+    }, [loginStatusInfo]);
     return Scaffold(
       backgroundColor: Color(0xFFfcfcfc),
       body: SingleChildScrollView(

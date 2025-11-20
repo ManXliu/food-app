@@ -33,7 +33,7 @@ final class UserModelProviderProvider
   UserModelProvider create() => UserModelProvider();
 }
 
-String _$userModelProviderHash() => r'a46bb902f3eb36d3f2696735a380f0ca33e621f6';
+String _$userModelProviderHash() => r'78f94cda2c4dcbfd3355ddfd7eadc37549cb5524';
 
 abstract class _$UserModelProvider extends $AsyncNotifier<UserModel> {
   FutureOr<UserModel> build();

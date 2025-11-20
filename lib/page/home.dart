@@ -1,7 +1,7 @@
 import 'package:first_flutter_project/component/custom_bottom_navigator_item.dart';
 import 'package:first_flutter_project/page/categories.dart';
 import 'package:first_flutter_project/page/favorities.dart';
-import 'package:first_flutter_project/page/recipe.dart';
+import 'package:first_flutter_project/page/my_page.dart';
 import 'package:first_flutter_project/page/search/search.dart' show Search;
 import 'package:first_flutter_project/provider/home_index.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +45,7 @@ class _HomeState extends State<Home> {
               index: 1,
             ),
             const CustomBottomNavigatorItem(iconData: Icons.favorite, index: 2),
-            const CustomBottomNavigatorItem(
-              iconData: Icons.add_circle_sharp,
-              index: 3,
-            ),
+            const CustomBottomNavigatorItem(iconData: Icons.person, index: 3),
           ],
         ),
       ),
@@ -68,7 +65,7 @@ class _HomeState extends State<Home> {
         if (watch == 2) {
           return Favorities();
         }
-        return Ricipe();
+        return MyPage();
       },
     );
   }
