@@ -52,7 +52,7 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
         children: [
           SizedBox(height: 20.h),
           CommonTitle(
-            widget: Positioned(
+            rightWight: Positioned(
               right: 0,
               top: 8.h,
               child: GestureDetector(

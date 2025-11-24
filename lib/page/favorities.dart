@@ -22,7 +22,7 @@ class _FavoritiesState extends State<Favorities> {
           SizedBox(height: 20.h),
           CommonTitle(
             title: 'Favorites',
-            widget: Align(
+            rightWight: Align(
               alignment: AlignmentGeometry.centerRight,
               child: IconButton(
                 onPressed: () {
