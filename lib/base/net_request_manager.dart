@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:first_flutter_project/base/interceptor/result_interceptor.dart';
+import 'package:first_flutter_project/base/interceptor/token_interceptor.dart';
+import 'package:first_flutter_project/common/base_result.dart';
 
 import 'env.dart';
 
@@ -32,26 +34,28 @@ class NetRequestManager {
     );
     _dio.interceptors.add(InterceptorsWrapper());
     _dio.interceptors.add(ResultInterceptor());
+    _dio.interceptors.add(TokenInterceptor());
   }
 
-  Future<Response> getRequest<T>(
+  Future<BaseResult> get(
     String url, {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final Response<T> response = await _dio.get(
+    final Response response = await _dio.get(
       url,
       queryParameters: queryParameters,
       options: options,
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
     );
-    return response;
+    return BaseResult.fromJson(response.data);
+    ;
   }
 
-  Future<Response> postRequest<T>(
+  Future<BaseResult> post(
     String url, {
     Map<String, dynamic>? queryParameters,
     Object? data,
@@ -67,6 +71,6 @@ class NetRequestManager {
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
     );
-    return response;
+    return BaseResult.fromJson(response.data);
   }
 }

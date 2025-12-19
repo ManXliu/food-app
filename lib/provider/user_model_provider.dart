@@ -1,6 +1,5 @@
 import 'package:first_flutter_project/base/env.dart';
 import 'package:first_flutter_project/base/net_request_manager.dart';
-import 'package:first_flutter_project/common/base_result.dart';
 import 'package:first_flutter_project/model/user_model.dart';
 import 'package:first_flutter_project/provider/login_status_provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -25,7 +24,7 @@ class UserModelProvider extends _$UserModelProvider {
     final loginStatus = ref.read(loginStatusProviderProvider.notifier);
     loginStatus.reset(LoginStatus.loading);
     try {
-      final response = await NetRequestManager.instance.postRequest(
+      final result = await NetRequestManager.instance.post(
         "/auth/login",
         data: {
           "username": username,
@@ -35,15 +34,19 @@ class UserModelProvider extends _$UserModelProvider {
           "tenantId": Env.tenantId,
         },
       );
-      final baseResult = BaseResult.fromJson(response.data);
-      if (baseResult.code != 200) {
-        throw Exception(baseResult.msg);
+      if (result.code != 200) {
+        throw Exception(result.msg);
       }
-      final userModel = UserModel.fromJson(baseResult.data);
+      final userModel = UserModel.fromJson(result.data);
       final flutterSecureStorage = FlutterSecureStorage();
       await flutterSecureStorage.write(
-        key: userModel.userId.toString(),
+        key: "accessToken",
         value: userModel.accessToken,
+      );
+
+      await flutterSecureStorage.write(
+        key: "userId",
+        value: userModel.userId.toString(),
       );
       state = AsyncData(userModel);
       loginStatus.reset(LoginStatus.success);
@@ -52,8 +55,18 @@ class UserModelProvider extends _$UserModelProvider {
     }
   }
 
+  Future<bool> checkToken() async {
+    final result = await NetRequestManager.instance.get("/auth/checkToken");
+    final data = result.data as bool;
+    return data;
+  }
+
   /// 退出登录
-  void logout() async {}
+  Future<void> logout() async {
+    final flutterSecureStorage = FlutterSecureStorage();
+    await flutterSecureStorage.delete(key: "userId");
+    await flutterSecureStorage.delete(key: "accessToken");
+  }
 
   /// 退出登录
   void setValue(String username, String password) {
